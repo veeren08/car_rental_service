@@ -2,6 +2,8 @@
 ActiveAdmin.register Car do
   permit_params :PlateNumber, :approved, :city, :country, :created_at, :hourlyRentalRate, :id, :id_value, :manufacturer, :mobile, :model, :state, :status, :style, :updated_at
 
+  filter :approved
+
   controller do  
     def scoped_collection
       if current_admin_user.admin?
