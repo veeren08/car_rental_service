@@ -1,6 +1,6 @@
 # app/admin/car.rb
 ActiveAdmin.register Car do
-  permit_params :PlateNumber, :approved, :city, :country, :created_at, :hourlyRentalRate, :id, :id_value, :manufacturer, :mobile, :model, :state, :status, :style, :updated_at, :admin_user_id
+  permit_params :PlateNumber, :approved, :city, :country, :created_at, :hourlyRentalRate, :id, :id_value, :manufacturer, :mobile, :model, :state, :status, :style, :updated_at
 
   controller do  
     def scoped_collection
