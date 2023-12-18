@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   namespace :admin do
@@ -13,4 +14,6 @@ Rails.application.routes.draw do
       post 'book' 
     end
   end
+
+  root 'home#index'
 end
