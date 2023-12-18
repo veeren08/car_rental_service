@@ -1,19 +1,16 @@
-# app/models/ability.rb
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new
-
-    if user.admin?
+    user ||= AdminUser.new # guest user (not logged in)
+    
+    if user.role == 'admin'
       can :manage, :all
-    elsif user.owner?
-      can [:read, :create, :update], Car
-      can :destroy, Car, approved: false
-    else
-      can :read, Car, approved: true
-      # Other permissions for regular users
+    elsif user.role == 'owner'
+      can :read, User
+      can :manage, Car
+      can :manage, User, id: user.id
+      cannot :manage, AdminUser
     end
   end
 end

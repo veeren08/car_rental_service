@@ -1,18 +1,11 @@
-# app/controllers/application_controller.rb
-
 class ApplicationController < ActionController::Base
-  before_action :authorize_user!
   protect_from_forgery with: :exception
-
-  def current_user
-    byebug
-    # Your logic to retrieve the current user
-  end
+  # before_action :authorize_admin!
 
   protected
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || default_redirect_path
+    stored_location_for(resource) || admin_root_path
   end
 
   def default_redirect_path
@@ -29,11 +22,12 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def authorize_user!
-    # Implement your authorization logic here
-  end
-
-  def authorize_admin!
-    # Implement your admin authorization logic here
-  end
+  # def authorize_admin!
+  #   # Implement your admin authorization logic here
+  #   # For example, using Devise's current_user and checking for admin role
+  #   unless current_user&.admin?
+  #     # Redirect or handle unauthorized access
+  #     redirect_to cars_path, alert: 'You are not authorized to access this page.'
+  #   end
+  # end
 end

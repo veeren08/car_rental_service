@@ -12,7 +12,7 @@ class CreateCars < ActiveRecord::Migration[7.1]
       t.string :country
       t.string :mobile
       t.boolean :approved, default: false
-      t.references :user, foreign_key: true
+      t.references :admin_user, foreign_key: true
 
       t.timestamps
     end

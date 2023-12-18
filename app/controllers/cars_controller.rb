@@ -1,7 +1,5 @@
-# app/controllers/cars_controller.rb
-
 class CarsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   def index
     # Regular user's index action

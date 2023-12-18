@@ -3,14 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
 
-  enum role: [:user, :owner, :admin], _default: :user
-  validates :role, presence: true
+  def self.ransackable_attributes(auth_object = nil)
+    %w[created_at encrypted_password email id_value id hourlyRentalRate remember_created_at reset_password_sent_at reset_password_token role updated_at]
+  end
 
-  scope :admins, -> { where(role: :admin) }
-  scope :owners, -> { where(role: :owner) }
-  scope :regular_users, -> { where(role: :user) }
-  
   def set_role(role)
     update(role: role)
   end
