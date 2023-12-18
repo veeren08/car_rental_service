@@ -15,7 +15,7 @@ ActiveAdmin.register AdminUser do
       if can?(:create, AdminUser) && current_admin_user.admin?
         super
       else
-        super - ['new', 'edit', 'update', 'destroy']
+        super - ['destroy']
       end
     end
   
@@ -35,19 +35,21 @@ ActiveAdmin.register AdminUser do
   end
 
   filter :email
-  filter :current_sign_in_at
-  filter :sign_in_count
   filter :created_at
-
+  
   form do |f|
     f.inputs do
       f.input :email
       f.input :role
-      unless current_admin_user.admin?
+      if current_admin_user.admin? && f.object.new_record? || f.object == current_admin_user
         f.input :password
         f.input :password_confirmation
       end
+      # if current_admin_user.admin? && f.object.new_record?
+      #   f.input :password
+      #   f.input :password_confirmation
+      # end    
     end
-    f.actions if current_admin_user.admin? # Display actions only for admin users
+    f.actions
   end
 end
